@@ -822,12 +822,14 @@ export function renderMovieDetails(
                                 <div class="trailer-container">
 
                                     <iframe
-                                        src="https://www.youtube.com/embed/${trailer.key}"
-                                        title="${movie.title} Official Trailer"
-                                        frameborder="0"
-                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                        allowfullscreen
-                                    ></iframe>
+    src="https://www.youtube.com/embed/${trailer.key}?playsinline=1&rel=0"
+    title="${movie.title} Official Trailer"
+    frameborder="0"
+    loading="lazy"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    referrerpolicy="strict-origin-when-cross-origin"
+    allowfullscreen
+></iframe>
 
                                 </div>
 
