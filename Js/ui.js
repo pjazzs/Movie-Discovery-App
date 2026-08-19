@@ -527,6 +527,7 @@ export function updatePagination(
 }
 
 
+
 // ================================
 // MOVIE DETAILS
 // ================================
