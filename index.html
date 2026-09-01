@@ -1,390 +1,230 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>Movie Discovery App</title>
 
-    <link rel="stylesheet" href="style.css">
-</head>
+    <link rel="stylesheet" href="style.css" />
+  </head>
 
-
-<body>
-
+  <body>
     <!-- ================================
          HEADER
     ================================= -->
 
     <header class="header">
+      <div class="container header-content">
+        <a href="#" class="logo"> Movie<span>Hub</span> </a>
 
-        <div class="container header-content">
-
-            <a href="#" class="logo">
-               Pjazz Movie<span>Hub</span>
-            </a>
-
-
-      <button class="favorites-btn" id="favoritesBtn">
-    ♥ Favorites
-    <span id="favoritesCount">0</span>
-</button>
-
-        </div>
-
+        <button class="favorites-btn" id="favoritesBtn">
+          ♥ Favorites
+          <span id="favoritesCount">0</span>
+        </button>
+      </div>
     </header>
-
-
 
     <!-- ================================
          MAIN CONTENT
     ================================= -->
 
     <main class="container">
-
-
-        <!-- ================================
+      <!-- ================================
              HERO
         ================================= -->
 
-        <section class="hero">
-
-            <h1>
-                Discover Your Next Movie
-            </h1>
-
-
-            <p>
-                Search for movies, explore different genres,
-                and save your favorites.
-            </p>
-
-
-            <!-- Search & Filter -->
-
-            <div class="search-section">
-
-
-                <!-- Search -->
-
-                <div class="search-box">
-
-                    <input
-                        type="text"
-                        id="searchInput"
-                        placeholder="Search for a movie..."
-                    >
-
-
-                    <button id="searchBtn">
-                        Search
-                    </button>
-
-                </div>
-
-
-
-                <!-- Genre Filter -->
-
-                <div class="filter-section">
-
-                    <label for="genreSelect">
-                        Filter by genre:
-                    </label>
-
-
-                    <select id="genreSelect">
-
-                        <option value="">
-                            All Genres
-                        </option>
-
-                    </select>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- Favorites Section -->
-<section
-    class="favorites-section hidden"
-    id="favoritesSection"
->
-
-    <div class="section-header">
-
-        <div>
-            <h2>Your Favorites</h2>
-
-            <p id="favoritesInfo">
-                Your saved movies
-            </p>
-        </div>
-
-        <button
-            class="back-movies-btn"
-            id="backMoviesBtn"
-        >
-            ← Back to Movies
-        </button>
-
-    </div>
-
-
-    <div
-        class="movie-grid"
-        id="favoritesGrid"
-    >
-        <!-- Favorite movies will be rendered here -->
-    </div>
-
-
-    <div
-        class="state-message hidden"
-        id="favoritesEmpty"
-    >
-
-        <h3>
-            No Favorites Yet
-        </h3>
+      <section class="hero">
+        <h1>Discover Your Next Movie</h1>
 
         <p>
-             You haven't saved any movies yet.
-            Browse movies and click the ♥ button
-            to add one.
+          Search for movies, explore different genres, and save your favorites.
         </p>
 
-        <button
-            id="browseMoviesBtn"
-        >
-            Browse Movies
-        </button>
+        <!-- Search & Filter -->
 
-    </div>
+        <div class="search-section">
+          <!-- Search -->
 
-</section>
+          <div class="search-box">
+            <input
+              type="text"
+              id="searchInput"
+              placeholder="Search for a movie..."
+            />
 
+            <button id="searchBtn">Search</button>
+          </div>
 
+          <!-- Genre Filter -->
 
-        <!-- ================================
+          <div class="filter-section">
+            <label for="genreSelect"> Filter by genre: </label>
+
+            <select id="genreSelect">
+              <option value="">All Genres</option>
+            </select>
+          </div>
+        </div>
+      </section>
+
+      <!-- Favorites Section -->
+      <section class="favorites-section hidden" id="favoritesSection">
+        <div class="section-header">
+          <div>
+            <h2>Your Favorites</h2>
+
+            <p id="favoritesInfo">Your saved movies</p>
+          </div>
+
+          <button class="back-movies-btn" id="backMoviesBtn">
+            ← Back to Movies
+          </button>
+        </div>
+
+        <div class="movie-grid" id="favoritesGrid">
+          <!-- Favorite movies will be rendered here -->
+        </div>
+
+        <div class="state-message hidden" id="favoritesEmpty">
+          <h3>No Favorites Yet</h3>
+
+          <p>
+            You haven't saved any movies yet. Browse movies and click the ♥
+            button to add one.
+          </p>
+
+          <button id="browseMoviesBtn">Browse Movies</button>
+        </div>
+      </section>
+
+      <!-- ================================
              MOVIES
         ================================= -->
 
-        <section class="movies-section">
+      <section class="movies-section">
+        <div class="section-header">
+          <h2>Movies</h2>
 
+          <p id="resultsInfo">Discover popular movies</p>
+        </div>
 
-            <div class="section-header">
+        <!-- Loading -->
 
-                <h2>
-                    Movies
-                </h2>
+        <div class="state-message hidden" id="loading">
+          <div class="spinner"></div>
 
+          <p>Loading movies...</p>
+        </div>
 
-                <p id="resultsInfo">
-                    Discover popular movies
-                </p>
+        <!-- Error -->
 
-            </div>
+        <div class="state-message error hidden" id="error">
+          <h3>Something went wrong</h3>
 
+          <p id="errorMessage">Unable to load movies. Please try again.</p>
 
+          <button id="retryBtn" type="button">Try Again</button>
+        </div>
 
-            <!-- Loading -->
+        <!-- Empty -->
 
-            <div
-                class="state-message hidden"
-                id="loading"
-            >
+        <div class="state-message hidden" id="emptyState">
+          <h3>No Movies Found</h3>
 
-                <div class="spinner"></div>
+          <p>Try searching for another movie or changing your filter.</p>
+        </div>
 
-                <p>
-                    Loading movies...
-                </p>
+        <!-- Movie Grid -->
 
-            </div>
+        <div class="movie-grid" id="movieGrid">
+          <!-- Movies generated by JavaScript -->
+        </div>
+      </section>
 
-
-
-            <!-- Error -->
-
-            <div
-                class="state-message error hidden"
-                id="error"
-            >
-
-                <h3>
-                    Something went wrong
-                </h3>
-
-
-                <p id="errorMessage">
-                    Unable to load movies.
-                    Please try again.
-                </p>
-
-
-                <button id="retryBtn"
-                type="button"
-                >
-                    Try Again
-                </button>
-
-            </div>
-
-
-
-            <!-- Empty -->
-
-            <div
-                class="state-message hidden"
-                id="emptyState"
-            >
-
-                <h3>
-                    No Movies Found
-                </h3>
-
-
-                <p>
-                    Try searching for another movie
-                    or changing your filter.
-                </p>
-
-            </div>
-
-
-
-            <!-- Movie Grid -->
-
-            <div
-                class="movie-grid"
-                id="movieGrid"
-            >
-
-                <!-- Movies generated by JavaScript -->
-
-            </div>
-
-        </section>
-
-
-
-        <!-- ================================
+      <!-- ================================
              PAGINATION
         ================================= -->
 
-        <nav
-            class="pagination"
-            id="pagination"
-        >
+      <nav class="pagination" id="pagination">
+        <button id="prevBtn" disabled>← Previous</button>
 
-            <button
-                id="prevBtn"
-                disabled
-            >
-                ← Previous
-            </button>
+        <span id="pageInfo"> Page 1 </span>
 
-
-            <span id="pageInfo">
-                Page 1
-            </span>
-
-
-            <button id="nextBtn">
-                Next →
-            </button>
-
-        </nav>
-
+        <button id="nextBtn">Next →</button>
+      </nav>
     </main>
-
-
 
     <!-- ================================
          MOVIE DETAILS MODAL
     ================================= -->
 
-   <div
-    class="modal hidden"
-    id="movieModal"
->
+    <div class="modal hidden" id="movieModal">
+      <!-- Overlay -->
 
-    <!-- Overlay -->
+      <div class="modal-overlay" id="modalOverlay"></div>
 
-    <div
-        class="modal-overlay"
-        id="modalOverlay"
-    ></div>
+      <!-- Modal Content -->
 
-
-    <!-- Modal Content -->
-
-    <div class="modal-content">
-
-
+      <div class="modal-content">
         <!-- Back Button -->
 
         <button
-            type="button"
-            class="modal-back hidden"
-            id="modalBack"
-            aria-label="Go back to previous movie"
+          type="button"
+          class="modal-back hidden"
+          id="modalBack"
+          aria-label="Go back to previous movie"
         >
-            ← Back
+          ← Back
         </button>
-
 
         <!-- Close Button -->
 
         <button
-            type="button"
-            class="modal-close"
-            id="modalClose"
-            aria-label="Close movie details"
+          type="button"
+          class="modal-close"
+          id="modalClose"
+          aria-label="Close movie details"
         >
-            ×
+          ×
         </button>
 
-
-        <div
-            class="movie-details"
-            id="movieDetails"
-        >
-
-            <!-- Movie details generated by JavaScript -->
-
+        <div class="movie-details" id="movieDetails">
+          <!-- Movie details generated by JavaScript -->
         </div>
-
+      </div>
     </div>
-
-</div>
 
     <!-- Toast Notification -->
 
-<div
-    id="toast"
-    class="toast hidden"
-    role="status"
-    aria-live="polite"
->
-    <span id="toastMessage"></span>
-</div>
+    <div id="toast" class="toast hidden" role="status" aria-live="polite">
+      <span id="toastMessage"></span>
+    </div>
 
+    <footer class="footer">
+      <div class="footer-container">
+        <p class="powered-by">
+          Powered by
+          <span class="company-name">PjazzConcept</span>
+        </p>
+
+        <p class="copyright">
+          <a href="mailto:pjazzconcept@gmail.com" class="email">
+            pjazzconcept@gmail.com
+          </a>
+
+          <span class="separator"> · </span>
+
+          © <span class="current-year"></span>
+          PjazzConcept. All rights reserved.
+        </p>
+      </div>
+    </footer>
 
     <!-- ================================
          JAVASCRIPT
     ================================= -->
 
-    <script
-        type="module"
-        src="./Js/app.js"
-    ></script>
-
-</body>
-
+    <script type="module" src="./Js/app.js"></script>
+  </body>
 </html>
